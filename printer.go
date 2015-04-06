@@ -54,9 +54,9 @@ func (p *printer) String() string {
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
 		reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
 		reflect.Uintptr, reflect.Complex64, reflect.Complex128:
-		p.colorPrint(p.raw(), "Blue")
+		p.printf("%s(%s)", p.typeString(), colorize(p.raw(), "Blue"))
 	case reflect.Float32, reflect.Float64:
-		p.colorPrint(p.raw(), "Magenta")
+		p.printf("%s(%s)", p.typeString(), colorize(p.raw(), "Magenta"))
 	case reflect.String:
 		p.printString()
 	case reflect.Map:
