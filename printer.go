@@ -114,7 +114,11 @@ func (p *printer) colorPrint(text, color string) {
 func (p *printer) printString() {
 	quoted := strconv.Quote(p.value.String())
 	quoted = quoted[1 : len(quoted)-1]
+	pureString := p.value.Type().Name() == "string"
 
+	if !pureString {
+		p.printf("%s(", p.typeString())
+	}
 	p.colorPrint(`"`, "Red")
 	for len(quoted) > 0 {
 		pos := strings.IndexByte(quoted, '\\')
@@ -141,6 +145,9 @@ func (p *printer) printString() {
 		quoted = quoted[pos+n+1:]
 	}
 	p.colorPrint(`"`, "Red")
+	if !pureString {
+		p.print(")")
+	}
 }
 
 func (p *printer) printMap() {
